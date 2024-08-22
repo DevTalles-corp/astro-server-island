@@ -1,0 +1,55 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { actions } from 'astro:actions';
+
+import MainLayout from '../../layouts/MainLayout.astro';
+import Star from '../../components/Star.astro';
+import { Image } from 'astro:assets';
+
+export const getStaticPaths = (async () => {
+  const { data } = await actions.getPlaces();
+
+  if (!data) {
+    throw new Error('No data retured from getPlaces');
+  }
+
+  return data.map((place) => ({
+    params: {
+      id: place.id,
+    },
+    props: {
+      place,
+    },
+  }));
+}) satisfies GetStaticPaths;
+
+const { id } = Astro.params;
+const { place } = Astro.props;
+
+const imageUrl = `/assets/images/${place.image}`;
+---
+
+<MainLayout>
+  <div class="grid grid-cols-2 gap-2">
+    <div class="bg-white/80 p-5 rounded-xl">
+      <h1 class="text-2xl font-extrabold">#{id} {place.title}</h1>
+      <p>{place.description}</p>
+
+      <div class="flex flex-1">
+        {Array.from({ length: Number(place.avg_rating) }).map((_) => <Star />)}
+      </div>
+
+      <!-- TODO: Server Island -->
+    </div>
+
+    <div>
+      <Image
+        src={imageUrl}
+        class="w-full h-96 object-cover rounded-xl"
+        width="800"
+        height="800"
+        alt={place.title}
+      />
+    </div>
+  </div>
+</MainLayout>
