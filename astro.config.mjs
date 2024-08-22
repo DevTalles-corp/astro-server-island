@@ -7,7 +7,8 @@ import node from "@astrojs/node";
 export default defineConfig( {
   integrations: [ tailwind() ],
   experimental: {
-    actions: true
+    actions: true,
+    serverIslands: true,
   },
   output: "hybrid",
   adapter: node( {

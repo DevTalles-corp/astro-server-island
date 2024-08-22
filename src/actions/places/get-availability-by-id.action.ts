@@ -4,7 +4,9 @@ export const getAvailabilityById = defineAction({
   accept: 'json',
   input: z.string(),
   handler: async (placeId) => {
-    await new Promise((resolve) => setTimeout(() => resolve, 3000));
+    console.log('se llamó?');
+
+    await new Promise((resolve) => setTimeout(resolve, 3000));
 
     const isAvailable = Math.random() > 0.5; // true | false
     const spotsAvailable = Math.floor(Math.random() * 10) + 1; // 1-11

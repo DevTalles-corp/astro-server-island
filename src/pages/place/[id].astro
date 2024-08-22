@@ -5,6 +5,7 @@ import { actions } from 'astro:actions';
 import MainLayout from '../../layouts/MainLayout.astro';
 import Star from '../../components/Star.astro';
 import { Image } from 'astro:assets';
+import Availability from '../../components/Availability.astro';
 
 export const getStaticPaths = (async () => {
   const { data } = await actions.getPlaces();
@@ -40,6 +41,17 @@ const imageUrl = `/assets/images/${place.image}`;
       </div>
 
       <!-- TODO: Server Island -->
+      <Availability server:defer placeId={place.id.toString()}>
+        <p
+          slot="fallback"
+          class="bg-gray-300 mt-5 text-center rounded-xl p-2 animate-pulse"
+        >
+          Espere
+        </p>
+      </Availability>
+
+      <!-- <p class="bg-blue-300 mt-5 text-center rounded-xl p-2">Disponibles</p>
+      <p class="bg-red-300 mt-5 text-center rounded-xl p-2">No Disponible</p> -->
     </div>
 
     <div>
