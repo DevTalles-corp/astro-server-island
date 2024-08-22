@@ -10,8 +10,12 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^4.14.4",
     "@astrojs/check": "^0.9.3",
+    "@astrojs/node": "^8.3.3",
+    "@astrojs/tailwind": "^5.1.0",
+    "@prisma/client": "^5.18.0",
+    "astro": "^4.14.4",
+    "tailwindcss": "^3.4.10",
     "typescript": "^5.5.4"
   }
 }

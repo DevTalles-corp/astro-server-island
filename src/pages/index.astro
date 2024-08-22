@@ -1,16 +1,17 @@
 ---
+import { actions } from 'astro:actions';
+import PlaceCard from '../components/PlaceCard.astro';
+import MainLayout from '../layouts/MainLayout.astro';
 
+const { data: places = [], error } = await actions.getPlaces();
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<MainLayout>
+  <h1 class="text-3xl font-extrabold">Lugares</h1>
+
+  <!-- Todo: mostrar los lugares para reseñas -->
+
+  <div class="grid grid-cols-3 gap-4">
+    {places.map((place) => <PlaceCard place={place} />)}
+  </div>
+</MainLayout>
